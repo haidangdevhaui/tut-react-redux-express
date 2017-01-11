@@ -22,6 +22,7 @@ import webpackConfig from '../webpack.config.dev'
 let app = express();
 let api = express();
 
+mongoose.Promise = global.Promise;
 mongoose.connect(configDB.mongo.uri);
 
 app.use(bodyParser.urlencoded({

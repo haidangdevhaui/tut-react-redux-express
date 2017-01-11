@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import hash from 'password-hash';
 
 let userSchema = new mongoose.Schema({
+    email: String,
 	username: String,
     password: String,
     firstname: String,
@@ -29,7 +30,7 @@ let userSchema = new mongoose.Schema({
 	collection: 'users'
 });
 
-userSchema.methods.hassPassword = function(pw){
+userSchema.methods.hashPassword = function(pw){
     return hash.generate(pw);
 }
 userSchema.methods.authenticate = function (pw) {
