@@ -1,16 +1,17 @@
 import React from 'react';
 import SignUpForm from './signUpForm';
-import {connect} from 'react-redux';
-import {SignUpRequest} from '../../actions/signUpActions';
+import { connect } from 'react-redux';
+import { SignUpRequest } from '../../actions/signUpActions';
+import { addFlashMessage } from '../../actions/flashMessage';
 
 
 class SignUpPage extends React.Component{
     render(){
-        const {SignUpRequest} = this.props;
+        const {SignUpRequest, addFlashMessage} = this.props;
         return (
             <div className="row">
                 <div className="col-lg-offset-3 col-lg-6">
-                    <SignUpForm SignUpRequest={SignUpRequest}/>
+                    <SignUpForm SignUpRequest={SignUpRequest} addFlashMessage={addFlashMessage}/>
                 </div>
             </div>
         );
@@ -25,4 +26,4 @@ const mapStateToProps = (state) => {
     return {}
 }
 
-export default connect(mapStateToProps, {SignUpRequest})(SignUpPage);
+export default connect(mapStateToProps, {SignUpRequest, addFlashMessage})(SignUpPage);

@@ -42,6 +42,10 @@ class SignUpForm extends Component {
                         return this.setState({errors: data.errors, isLoading: false})
                     }
                     if(data.success){
+                        this.props.addFlashMessage({
+                            type: 'success',
+                            text: data.message
+                        });
                         this.context.router.push('/');
                         return this.setState({message: data.message, isLoading: false})
                     }
