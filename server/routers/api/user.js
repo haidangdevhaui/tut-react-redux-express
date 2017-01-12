@@ -17,13 +17,13 @@ export default (api) => {
         User.findOne({
             email: req.body.email
         }, (err, user) => {
-            if(user){
-                error.isValid = false;
-                error.errors = {
-                    email: 'Email has been used'
-                }
-                return res.json(error)
-            }
+            // if(user){
+            //     error.isValid = false;
+            //     error.errors = {
+            //         email: 'Email has been used'
+            //     }
+            //     return res.json(error)
+            // }
             var newUser = new User();
             newUser.email = req.body.email;
             newUser.username = req.body.username;

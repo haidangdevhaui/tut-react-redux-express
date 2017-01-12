@@ -13,8 +13,6 @@ export default (state = [], action = {}) => {
                 }
             ];
     
-        default:
-            return state;
-            break;
+        default: return state;
     }
 }

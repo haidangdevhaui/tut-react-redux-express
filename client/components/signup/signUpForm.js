@@ -13,7 +13,6 @@ class SignUpForm extends Component {
             username: '',
             password: '',
             errors: {},
-            message: '',
             isLoading: false
         }
     }
@@ -46,8 +45,8 @@ class SignUpForm extends Component {
                             type: 'success',
                             text: data.message
                         });
+                        this.setState({isLoading: false});
                         this.context.router.push('/');
-                        return this.setState({message: data.message, isLoading: false})
                     }
                 }
             );

@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 const NavigationBar = () => {
     return (
         <div className="navbar">
-            <a className="navbar-brand" href="#">React with Express Server</a>
+            <Link className="navbar-brand" to="/">React with Express Server</Link>
             <ul className="nav navbar-nav">
                 <li className="active">
                     <Link to="/">Home</Link>
