@@ -5,12 +5,12 @@ import App from './components/App';
 import Home from './pages/Home';
 
 import SignUpPage from './components/signup/SignUpPage';
-import SignInPage from './components/signin/SignInPage';
+import LoginPage from './components/login/loginPage';
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={Home}/>
         <Route path="/signup" component={SignUpPage}/>
-        <Route path="/signin" component={SignInPage}/>
+        <Route path="/login" component={LoginPage}/>
     </Route>
 )

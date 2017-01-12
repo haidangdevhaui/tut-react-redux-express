@@ -1,50 +1,51 @@
 import React, {Component} from 'react';
-import {Alert, Button, Form, Label, InputGroup, FormControl, ControlLabel, FormGroup, HelpBlock} from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, HelpBlock, Button, Alert } from 'react-bootstrap';
 import classnames from 'classnames';
-import validatorUser from '../../../server/shared/validations/signup';
+import validatorUser from '../../../server/shared/validations/login';
 
-class SignUpForm extends Component {
+class LoginForm extends Component {
 
     constructor(props){
         super(props);
         this.state = {
             email: '',
-            username: '',
             password: '',
-            errors: {},
-            isLoading: false
+            isLoading: false,
+            message: '',
+            errors: {}
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.loginSubmit = this.loginSubmit.bind(this);
     }
 
     handleChange(e){
-        this.setState({ [e.target.name]: e.target.value});
+        this.setState({[e.target.name]: e.target.value});
     }
 
     isValid(){
         const { errors, isValid } = validatorUser(this.state);
 
         if(!isValid){
-            this.setState({ errors });
+            this.setState({ errors, isLoading: false });
         }
 
         return isValid;
     }
 
-    signUpSubmit(e){
+    loginSubmit(e){
         e.preventDefault();
+        this.setState({ errors: {}, isLoading: true });
         if(this.isValid()){
-            this.setState({errors: {}, isLoading: true});
-            this.props.SignUpRequest(this.state).then(
+            this.props.loginRequest(this.state).then(
                 ({data}) => {
-                    if(!data.isValid){
-                        return this.setState({errors: data.errors, isLoading: false})
+                    if(data.error){
+                        return this.setState({ message: data.message, isLoading: false });
                     }
-                    if(data.success){
+                    if(!data.error){
                         this.props.addFlashMessage({
                             type: 'success',
                             text: data.message
                         });
-                        this.setState({isLoading: false});
                         this.context.router.push('/');
                     }
                 }
@@ -53,12 +54,12 @@ class SignUpForm extends Component {
     }
 
     render() {
-        const { errors, message, isLoading } = this.state;
+        const { errors, isLoading, message } = this.state;
         return (
             <div>
-                <form className="" onSubmit={this.signUpSubmit.bind(this)}>
-                    <h3>Sign up now!</h3>
-                    {message && <Alert bsStyle="success">{message}</Alert>}
+                <form onSubmit={this.loginSubmit}>
+                    <h3>Login</h3>
+                    { message ? <Alert bsStyle="danger">{message}</Alert> : '' }
                     <FormGroup className={classnames({'has-error': errors.email})}>
                         <ControlLabel>Email</ControlLabel>
                         <FormControl
@@ -66,20 +67,9 @@ class SignUpForm extends Component {
                             name="email"
                             value={this.state.email}
                             placeholder="Enter text"
-                            onChange={this.handleChange.bind(this)}
+                            onChange={this.handleChange}
                         />
                         {errors.email ? <HelpBlock>{errors.email}</HelpBlock> : ''}
-                    </FormGroup>
-                    <FormGroup className={classnames({'has-error': errors.username})}>
-                        <ControlLabel>Username</ControlLabel>
-                        <FormControl
-                            type="text"
-                            name="username"
-                            value={this.state.username}
-                            placeholder="Enter text"
-                            onChange={this.handleChange.bind(this)}
-                        />
-                        {errors.username && <HelpBlock>{errors.username}</HelpBlock>}
                     </FormGroup>
                     <FormGroup className={classnames({'has-error': errors.password})}>
                         <ControlLabel>Password</ControlLabel>
@@ -87,10 +77,10 @@ class SignUpForm extends Component {
                             type="password"
                             name="password"
                             value={this.state.password}
-                            placeholder="Enter password"
-                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter text"
+                            onChange={this.handleChange}
                         />
-                        {errors.password && <HelpBlock>{errors.password}</HelpBlock>}
+                        {errors.password ? <HelpBlock>{errors.password}</HelpBlock> : ''}
                     </FormGroup>
                     <Button type="submit" bsStyle="primary" disabled={isLoading}>
                         Submit
@@ -101,8 +91,8 @@ class SignUpForm extends Component {
     }
 }
 
-SignUpForm.contextTypes = {
+LoginForm.contextTypes = {
     router: React.PropTypes.object.isRequired
 }
 
-export default SignUpForm;
+export default LoginForm;

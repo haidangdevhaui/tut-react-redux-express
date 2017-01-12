@@ -9,9 +9,6 @@ import passport from 'passport';
 import configServer from './config/server';
 import configDB from './config/database';
 
-import apiRouter from './routers/api';
-import apiUserRouter from './routers/api/user';
-
 import mongoose from 'mongoose';
 
 import webpack from 'webpack';
@@ -19,8 +16,10 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev'
 
+import auth from './routers/auth';
+import routerUser from './routers/api/user';
+
 let app = express();
-let api = express();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(configDB.mongo.uri);
@@ -48,10 +47,8 @@ app.use(webpackMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 
-app.use('/api', api);
-
-apiRouter(api);
-apiUserRouter(api)
+app.use('/api/user', routerUser);
+app.use('/api/auth', auth);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, './', 'index.html'));
