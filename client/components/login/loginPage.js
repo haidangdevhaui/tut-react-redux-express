@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import LoginForm from './loginForm';
-import { loginRequest } from '../../actions/loginActions';
+import { loginRequest } from '../../actions/authActions';
 import { addFlashMessage } from '../../actions/flashMessage';
 import { connect } from 'react-redux';
 

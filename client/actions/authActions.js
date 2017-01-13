@@ -18,10 +18,25 @@ export function loginRequest(loginData){
                 if(token){
                     localStorage.setItem('jwtToken', token);
                     setAuthorizationToken(token);
-                    dispatch(setCurrentUser(jwt.decode(token)))
+                    dispatch(setCurrentUser(jwt.decode(token)._doc))
                 }
                 return new Promise((resovle, reject) => {
                     resovle(res.data);
+                })
+            }
+        );
+    }
+}
+
+export function logOutRequest(){
+    return dispatch => {
+        return axios.get('api/auth/logout').then(
+            res => {
+                localStorage.removeItem('jwtToken');
+                setAuthorizationToken(false);
+                dispatch(setCurrentUser({}))
+                return new Promise((resovle, reject) => {
+                    return resovle(true)
                 })
             }
         );

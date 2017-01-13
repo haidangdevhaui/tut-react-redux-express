@@ -1,10 +1,41 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
+import {logOutRequest} from '../actions/authActions';
+import {addFlashMessage} from '../actions/flashMessage';
+import {ADD_FLASH_MESSAGE} from '../actions/types';
 
-const NavigationBar = () => {
-    return (
-        <div className="navbar">
-            <Link className="navbar-brand" to="/">React with Express Server</Link>
+class NavigationBar extends React.Component {
+
+    logOut(e){
+        e.preventDefault();
+        this.props.logOutRequest().then(
+            () => {
+                this.props.addFlashMessage({
+                    type: 'success',
+                    text: 'GoodBye!'
+                });
+            }
+        );
+        
+        
+    }
+
+    render(){
+        const { isAuthenticated, user } = this.props.auth;
+
+        const userLink = (
+            <ul className="nav navbar-nav">
+                <li>
+                    <Link to="profile" activeClassName="active">{user.username}</Link>
+                </li>
+                <li>
+                    <a href="#" onClick={this.logOut.bind(this)}>Logout</a>
+                </li>
+            </ul>
+        );
+
+        const guestLink = (
             <ul className="nav navbar-nav">
                 <li>
                     <Link to="/">Home</Link>
@@ -16,8 +47,26 @@ const NavigationBar = () => {
                     <Link to="login" activeClassName="active">Login</Link>
                 </li>
             </ul>
-        </div>
-    );
+        );
+
+        return (
+            <div className="navbar">
+                <Link className="navbar-brand" to="/">React with Express Server</Link>
+                { isAuthenticated ? userLink : guestLink }
+            </div>
+        );
+    }
+    
 };
 
-export default NavigationBar;
+NavigationBar.propTypes = {
+    auth: React.PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps, {logOutRequest, addFlashMessage})(NavigationBar);

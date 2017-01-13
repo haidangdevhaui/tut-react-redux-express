@@ -66,7 +66,7 @@ router.get('/check', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    if(!req.isAuthenticated()){
+    if(req.isAuthenticated()){
         req.logOut();
         return res.json(true);
     }
