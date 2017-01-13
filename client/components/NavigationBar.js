@@ -6,14 +6,14 @@ const NavigationBar = () => {
         <div className="navbar">
             <Link className="navbar-brand" to="/">React with Express Server</Link>
             <ul className="nav navbar-nav">
-                <li className="active">
+                <li>
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/signup">Signup</Link>
+                    <Link to="signup" activeClassName="active">Signup</Link>
                 </li>
                 <li>
-                    <Link to="/login">Login</Link>
+                    <Link to="login" activeClassName="active">Login</Link>
                 </li>
             </ul>
         </div>

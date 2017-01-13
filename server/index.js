@@ -35,8 +35,9 @@ app.use(session({
 	resave: true,
 	secret: 'xxx'
 }));
-// app.use(passport.initialize());
-// app.use(passport.session());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const compiler = webpack(webpackConfig);
 

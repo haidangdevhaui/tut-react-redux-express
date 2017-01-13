@@ -36,18 +36,17 @@ class LoginForm extends Component {
         e.preventDefault();
         this.setState({ errors: {}, isLoading: true });
         if(this.isValid()){
-            this.props.loginRequest(this.state).then(
-                ({data}) => {
-                    if(data.error){
-                        return this.setState({ message: data.message, isLoading: false });
+            const { email, password } = this.state;
+            this.props.loginRequest({ email, password }).then(
+                (res) => {
+                    if(res.error){
+                        return this.setState({ message: res.message , isLoading: false })
                     }
-                    if(!data.error){
-                        this.props.addFlashMessage({
-                            type: 'success',
-                            text: data.message
-                        });
-                        this.context.router.push('/');
-                    }
+                    this.props.addFlashMessage({
+                        type: 'success',
+                        text: 'Login Successfully !'
+                    });
+                    this.context.router.push('/');
                 }
             );
         }
