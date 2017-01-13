@@ -15,6 +15,7 @@ class NavigationBar extends React.Component {
                     type: 'success',
                     text: 'GoodBye!'
                 });
+                this.context.router.push('/');
             }
         );
         

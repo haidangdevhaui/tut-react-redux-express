@@ -42,3 +42,21 @@ export function logOutRequest(){
         );
     }
 }
+
+export function updateProfileRequest(userData){
+    return dispatch => {
+        return axios.post('api/auth/profile', userData).then(
+            res => {
+                const token = res.data.token;
+                if(token){
+                    localStorage.setItem('jwtToken', token);
+                    setAuthorizationToken(token);
+                    dispatch(setCurrentUser(jwt.decode(token)._doc))
+                }
+                return new Promise((resovle, reject) => {
+                    resovle(res.data);
+                })
+            }
+        );
+    }
+}

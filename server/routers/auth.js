@@ -4,6 +4,7 @@ import apiConfig from '../config/api';
 import User from '../models/user';
 import passport from 'passport';
 import Local from 'passport-local';
+import authenticate from '../middlewares/authenticate';
 
 const router = express.Router();
 
@@ -56,6 +57,14 @@ router.post('/', (req, res, next) => {
             });
     })(req, res, next);
     
+});
+
+router.post('/profile', authenticate, (req, res) => {
+    
+    return res.json({
+        error: false,
+        message: 'ok'
+    });
 });
 
 router.get('/check', (req, res) => {
