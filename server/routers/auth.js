@@ -27,10 +27,10 @@ passport.use(new Local.Strategy({
                 return done(err);
             }
             if (!user) {
-                return done(null, false, {message: 'Tên đăng nhập không hợp lệ!'});
+                return done(null, false, {message: 'Invalid Username!'});
             }
             if (!user.authenticate(password)) {
-                return done(null, false, {message: 'Mật khẩu không đúng!'});
+                return done(null, false, {message: 'Invalid Password!'});
             }
             return done(null, user);
         });
