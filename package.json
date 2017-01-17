@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "babel": "*",
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
