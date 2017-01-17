@@ -5,6 +5,12 @@ import {addFlashMessage} from '../actions/flashMessage';
 export default function(ComposedComponent){
     class Authenticate extends Component {
         
+        componentWillUpdate(nextProps) {
+            if(!nextProps.isAuthenticated){
+                this.context.router.push('/');
+            }
+        }
+        
         componentWillMount() {
             const {isAuthenticated} = this.props;
             if(!isAuthenticated){
