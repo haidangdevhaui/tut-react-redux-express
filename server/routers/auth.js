@@ -59,12 +59,28 @@ router.post('/', (req, res, next) => {
     
 });
 
+router.get('/user', authenticate, (req, res) => {
+    res.json(req.user);
+});
+
 router.post('/profile', authenticate, (req, res) => {
-    
-    return res.json({
-        error: false,
-        message: 'ok'
-    });
+    User.update({
+        _id: req.user._id
+    }, {
+        $set: req.body
+    }, {}, (err, newUser) => {
+        console.log(err);
+        console.log(newUser);
+        return res.json({
+            error: false,
+            profile: newUser,
+            message: 'Update profile successfully!'
+        });
+    })
+});
+
+router.post('/avatar', (req, res) => {
+
 });
 
 router.get('/check', (req, res) => {

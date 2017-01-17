@@ -43,13 +43,19 @@ class ProfileForm extends Component {
         }
     }
 
+    
+    componentWillMount() {
+        this.setState(this.props.profile);
+    }
+    
+
     render() {
         const { errors, message, isLoading } = this.state;
 
         return (
             <div>
                 <form className="" onSubmit={this.profileSubmit}>
-                    <h3>Sign up now!</h3>
+                    <h3>Profile</h3>
                     <FormGroup className={classnames({'has-error': errors.fullname})}>
                         <ControlLabel>Fullname</ControlLabel>
                         <FormControl
@@ -76,12 +82,14 @@ class ProfileForm extends Component {
                         <ControlLabel>Gender</ControlLabel>
                         <Radio inline 
                             name="gender"
-                            value="0">
+                            value="0"
+                            onClick={this.handleChange.bind(this)}>
                             Famale
                         </Radio>
                         <Radio inline 
                             name="gender"
-                            value="1">
+                            value="1"
+                            onClick={this.handleChange.bind(this)}>
                             Male
                         </Radio>
                         {errors.gender && <HelpBlock>{errors.gender}</HelpBlock>}

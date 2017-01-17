@@ -8,11 +8,13 @@ import SignUpPage from './components/signup/SignUpPage';
 import LoginPage from './components/login/loginPage';
 import ProfilePage from './components/profile/profilePage';
 
+import requireAuth from './utils/requireAuth';
+
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={Home}/>
         <Route path="/signup" component={SignUpPage}/>
         <Route path="/login" component={LoginPage}/>
-        <Route path="/profile" component={ProfilePage}/>
+        <Route path="/profile" component={requireAuth(ProfilePage)}/>
     </Route>
 )

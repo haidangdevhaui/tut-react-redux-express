@@ -60,3 +60,9 @@ export function updateProfileRequest(userData){
         );
     }
 }
+
+export function getProfileRequest(){
+    return dispatch => {
+        return axios.get('api/auth/user');
+    }
+}

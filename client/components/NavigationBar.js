@@ -64,6 +64,10 @@ NavigationBar.propTypes = {
     auth: React.PropTypes.object.isRequired
 }
 
+NavigationBar.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+
 const mapStateToProps = (state) => {
     return {
         auth: state.auth
