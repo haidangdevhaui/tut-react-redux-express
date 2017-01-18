@@ -54,5 +54,9 @@
     "shortid": "^2.2.6",
     "validator": "^6.2.1"
   },
-  "heroku-postbuild": "webpack --config webpack.config.dev.js --progress --display-error-details"
+  "heroku-postbuild": "webpack --config webpack.config.dev.js --progress --display-error-details",
+  "engines": {
+    "node": "7.2.0",
+    "npm": "3.9.5"
+  }
 }
