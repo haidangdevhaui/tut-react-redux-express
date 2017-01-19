@@ -64,18 +64,21 @@ router.get('/user', authenticate, (req, res) => {
 });
 
 router.post('/profile', authenticate, (req, res) => {
-    User.update({
-        _id: req.user._id
-    }, {
-        $set: req.body
-    }, {}, (err, newUser) => {
-        console.log(err);
-        console.log(newUser);
-        return res.json({
-            error: false,
-            profile: newUser,
-            message: 'Update profile successfully!'
+    User.findById(req.user._id, (err, user) => {
+        if(err) return res.json({
+            error: true,
+            message: 'Unknown user!'
         });
+        user.fullname = req.body.fullname
+        user.age = req.body.age
+        user.gender = req.body.gender
+        user.save((err, newUser)=> {
+            return res.json({
+                error: false,
+                token: jwt.sign(newUser, apiConfig.jwtSecrect),
+                message: 'Update profile successfully!'
+            });
+        })
     })
 });
 

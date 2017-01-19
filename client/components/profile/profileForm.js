@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import { FormGroup, FormControl, Alert, ControlLabel, HelpBlock, Radio, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import validatorUser from '../../../server/shared/validations/profile';
+import {setCurrentUser} from '../../actions/authActions';
+import setAuthorizationToken from '../../utils/setAuthorizationToken';
+import jwt from 'jsonwebtoken';
 
 class ProfileForm extends Component {
     constructor(props){
@@ -37,18 +40,27 @@ class ProfileForm extends Component {
             this.setState({errors: {}, isLoading: false});
             this.props.updateProfileRequest(this.state).then(
                 (data) => {
-                    console.log(data);
+                    if(!data.error){
+                        this.props.addFlashMessage({
+                            type: 'success',
+                            text: data.message,
+                            row: false
+                        });
+                        const token = data.token;
+                        if(token){
+                            localStorage.setItem('jwtToken', token);
+                            setAuthorizationToken(token);
+                        }
+                    }
                 }
             )
         }
     }
-
     
     componentWillMount() {
         this.setState(this.props.profile);
     }
     
-
     render() {
         const { errors, message, isLoading } = this.state;
 

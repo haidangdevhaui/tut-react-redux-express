@@ -6,7 +6,7 @@ import {addFlashMessage} from '../../actions/flashMessage';
 
 class ProfilePage extends Component {
     render() {
-        const {updateProfileRequest, getProfileRequest, profile} = this.props;
+        const {updateProfileRequest, getProfileRequest, profile, addFlashMessage} = this.props;
         return (
             <div className="col-lg-offset-3 col-lg-6">
                 <ProfileForm

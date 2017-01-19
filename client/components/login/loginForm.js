@@ -44,7 +44,8 @@ class LoginForm extends Component {
                     }
                     this.props.addFlashMessage({
                         type: 'success',
-                        text: 'Login Successfully !'
+                        text: 'Login Successfully !',
+                        row: true
                     });
                     this.context.router.push('/');
                 }

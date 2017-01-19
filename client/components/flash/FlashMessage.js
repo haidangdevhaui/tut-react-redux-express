@@ -12,9 +12,9 @@ class FlashMessage extends Component {
     }
 
     render() {
-        const { id, type, text } = this.props.message;
+        const { id, type, text, row } = this.props.message;
         return (
-            <div className="row">
+            <div className={row ? "row" : "col-lg-offset-3 col-lg-6"}>
                 <Alert bsStyle={type} key={id}>
                     <button className="close" onClick={this.onClick}><span>&times;</span></button>
                     {text}
