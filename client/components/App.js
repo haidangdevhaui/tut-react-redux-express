@@ -6,10 +6,17 @@ import '../styles/_app.css';
 class App extends Component{
     render(){
         return (
-            <div className="container">
+            <div className="app-main">
                 <NavigationBar />
-                <FlashMessagesList />
-                {this.props.children}
+                <div className="row">
+                    <div className="col-lg-10">
+                        <FlashMessagesList />
+                        {this.props.children}
+                    </div>
+                    <div className="col-lg-2" style={{borderLeft: '1px solid #ccc'}}>
+                        CHAT Component
+                    </div>
+                </div>
             </div>
         )
     }

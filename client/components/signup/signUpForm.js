@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Button, Form, Label, InputGroup, FormControl, ControlLabel, FormGroup, HelpBlock} from 'react-bootstrap';
 import classnames from 'classnames';
 import validatorUser from '../../../server/shared/validations/signup';
+import FA from '../../helpers/font-awesome';
 
 class SignUpForm extends Component {
 
@@ -61,7 +62,10 @@ class SignUpForm extends Component {
                     <h3>Sign up now!</h3>
                     {message && <Alert bsStyle="success">{message}</Alert>}
                     <FormGroup className={classnames({'has-error': errors.email})}>
-                        <ControlLabel>Email</ControlLabel>
+                        <ControlLabel>
+                            <FA className="envelope"></FA>
+                            Email
+                        </ControlLabel>
                         <FormControl
                             type="email"
                             name="email"
@@ -72,7 +76,10 @@ class SignUpForm extends Component {
                         {errors.email ? <HelpBlock>{errors.email}</HelpBlock> : ''}
                     </FormGroup>
                     <FormGroup className={classnames({'has-error': errors.username})}>
-                        <ControlLabel>Username</ControlLabel>
+                        <ControlLabel>
+                            <FA className="pencil-square-o"></FA>
+                            Username
+                        </ControlLabel>
                         <FormControl
                             type="text"
                             name="username"
@@ -83,7 +90,10 @@ class SignUpForm extends Component {
                         {errors.username && <HelpBlock>{errors.username}</HelpBlock>}
                     </FormGroup>
                     <FormGroup className={classnames({'has-error': errors.password})}>
-                        <ControlLabel>Password</ControlLabel>
+                        <ControlLabel>
+                            <FA className="pencil-square-o"></FA>
+                            Password
+                        </ControlLabel>
                         <FormControl
                             type="password"
                             name="password"

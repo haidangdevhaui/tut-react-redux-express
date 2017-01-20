@@ -95,12 +95,14 @@ class ProfileForm extends Component {
                         <Radio inline 
                             name="gender"
                             value="0"
+                            checked={this.state.gender == 0}
                             onClick={this.handleChange.bind(this)}>
                             Famale
                         </Radio>
                         <Radio inline 
                             name="gender"
                             value="1"
+                            checked={this.state.gender == 1}
                             onClick={this.handleChange.bind(this)}>
                             Male
                         </Radio>

@@ -48,6 +48,8 @@ app.use(webpackMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 
+app.use('/static', express.static('public'))
+
 app.use('/api/user', routerUser);
 app.use('/api/auth', auth);
 
