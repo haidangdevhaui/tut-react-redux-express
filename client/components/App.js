@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import NavigationBar from './NavigationBar';
 import FlashMessagesList from './flash/FlashMessagesList';
-import appStyle from '../styles/_app.css';
+import '../styles/_app.css';
 
 class App extends Component{
     render(){
