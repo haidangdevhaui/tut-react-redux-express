@@ -6,7 +6,7 @@ class GuestLayOut extends React.Component {
     render(){
         return(
             <Row>
-                Social Network build with React and Node
+                <h3 className="text-center">Social Network build with React and Node</h3>
             </Row>
         )
     }
