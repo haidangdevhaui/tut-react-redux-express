@@ -1,5 +1,13 @@
 *{
 	text-decoration: none;
 	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-	border-radius: 0 !important;
+	/*border-radius: 0 !important;*/
+}
+.rowContent{
+	margin-top: 10px;
+}
+.fixFeedback{
+	top: 10px;
+	right: 5px;
+	cursor: pointer;
 }

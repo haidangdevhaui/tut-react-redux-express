@@ -1,0 +1,13 @@
+.textSub{
+	font-size: 9px;
+	color: #ccc;
+}
+.navSearch{
+	border-radius: 20px;
+}
+.postBtn{
+    color: #FFF !important;
+}
+.postBtn:hover{
+    color: #428bca !important;
+}

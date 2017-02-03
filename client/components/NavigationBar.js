@@ -5,9 +5,18 @@ import {logOutRequest} from '../actions/authActions';
 import {addFlashMessage} from '../actions/flashMessage';
 import {ADD_FLASH_MESSAGE} from '../actions/types';
 import FA from '../helpers/font-awesome';
+import style from '../styles/_navigation.css';
+import {Col, Navbar, Row, Modal, Button} from 'react-bootstrap';
 
 class NavigationBar extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            showModal: false
+        }
+    }
+    
     logOut(e){
         e.preventDefault();
         this.props.logOutRequest().then(
@@ -18,61 +27,97 @@ class NavigationBar extends React.Component {
                 });
                 this.context.router.push('/');
             }
-        );
-        
-        
+        )
+    }
+
+    onClosePostModal(){
+        this.setState({showModal: false});
+    }
+
+    onOpenPostModal(){
+        this.setState({showModal: true});
     }
 
     render(){
         const { isAuthenticated, user } = this.props.auth;
-
+        const postModal = (
+            <Modal show={this.state.showModal} onHide={this.onClosePostModal.bind(this)}>
+                <Modal.Header>
+                    <Modal.Title className="text-center">Compose new status</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Body
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.onClosePostModal.bind(this)}>Close</Button>
+                </Modal.Footer>
+             </Modal>
+        );
         const userLink = (
-            <ul className="nav navbar-nav navbar-right">
-                <li className="dropdown">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                        (avatar)
-                        {user.username}
-                        <b className="caret"></b>
-                    </a>
-                    <ul className="dropdown-menu">
-                        <li>
-                            <Link to="profile" activeClassName="active">
-                                <FA className="user"></FA>
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="calendar" activeClassName="active">
-                                <FA className="calendar"></FA>
-                                Calendar
-                            </Link>
-                        </li>
-                        <li>
-                            <a href="#" onClick={this.logOut.bind(this)}>
-                                <FA className="sign-out"></FA>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <div>
+            <Navbar.Collapse>
+                <ul className="nav navbar-nav">
+                    <li><Link to="/"><FA className="home"></FA>Home</Link></li>
+                    <li><a href="#"><FA className="bell"></FA>Notifications</a></li>
+                    <li><a href="#"><FA className="envelope"></FA>Messages</a></li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                    <li className="dropdown">
+                        <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                            (avatar)
+                            <b className="caret"></b>
+                        </a>
+                        <ul className="dropdown-menu">
+                            <li>
+                                <Link to="profile" activeClassName="active">
+                                    {user.username}<br/>
+                                    <span className={style.textSub}>view profile</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <a href="#" onClick={this.logOut.bind(this)}>
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" className={style.postBtn + ' btn btn-primary'} onClick={this.onOpenPostModal.bind(this)}>
+                            <FA className="edit"></FA>Post
+                        </a>
+                    </li>
+                </ul>
+                <form className="navbar-form navbar-right" role="search">
+                    <div className="form-group">
+                        <input type="text" className={style.navSearch + ' form-control'} placeholder="Search"/>
+                    </div>
+                </form>
+            </Navbar.Collapse>
+            {postModal}
+            </div>
         );
 
         const guestLink = (
-            <ul className="nav navbar-nav navbar-right">
-                <li>
-                    <Link to="signup" activeClassName="active">
-                        <FA className="user-plus"></FA>
-                        Signup
-                    </Link>
-                </li>
-                <li>
-                    <Link to="login" activeClassName="active">
-                        <FA className="sign-in"></FA>
-                        Login
-                    </Link>
-                </li>
-            </ul>
+            <div className="collapse navbar-collapse navbar-ex1-collapse">
+                <ul className="nav navbar-nav">
+                    <li><Link to="/"><FA className="home"></FA>Home</Link></li>
+                    <li><a href="#"><FA className="globe"></FA>Introduce</a></li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                    <li>
+                        <Link to="signup" activeClassName="active">
+                            <FA className="user-plus"></FA>
+                            Signup
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="login" activeClassName="active">
+                            <FA className="sign-in"></FA>
+                            Login
+                        </Link>
+                    </li>
+                </ul>
+            </div>
         );
 
         return (
@@ -85,21 +130,8 @@ class NavigationBar extends React.Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <Link className="navbar-brand" to="/">App Title</Link>
                     </div>
-                    <div className="collapse navbar-collapse navbar-ex1-collapse">
-                        <ul className="nav navbar-nav">
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
-                        <form className="navbar-form navbar-left" role="search">
-                            <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Search" />
-                            </div>
-                            <button type="submit" className="btn btn-default">Submit</button>
-                        </form>
-                        { isAuthenticated ? userLink : guestLink }
-                    </div>
+                    {isAuthenticated ? userLink : guestLink}
                 </nav>
             </div>
         );

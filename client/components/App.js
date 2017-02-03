@@ -1,25 +1,22 @@
 import React, {Component} from 'react';
 import NavigationBar from './NavigationBar';
-import FlashMessagesList from './flash/FlashMessagesList';
-import '../styles/_app.css';
+import style from '../styles/_app.css';
+import {connect} from 'react-redux';
 
 class App extends Component{
     render(){
         return (
             <div className="app-main">
                 <NavigationBar />
-                <div className="row">
-                    <div className="col-lg-10">
-                        <FlashMessagesList />
-                        {this.props.children}
-                    </div>
-                    <div className="col-lg-2" style={{borderLeft: '1px solid #ccc'}}>
-                        CHAT Component
-                    </div>
-                </div>
+                {this.props.children}
             </div>
         )
     }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth
+    }
+}
+export default connect(mapStateToProps)(App);

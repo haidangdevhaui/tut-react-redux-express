@@ -63,10 +63,9 @@ class ProfileForm extends Component {
     
     render() {
         const { errors, message, isLoading } = this.state;
-
         return (
             <div>
-                <form className="" onSubmit={this.profileSubmit}>
+                <form onSubmit={this.profileSubmit}>
                     <h3>Profile</h3>
                     <FormGroup className={classnames({'has-error': errors.fullname})}>
                         <ControlLabel>Fullname</ControlLabel>

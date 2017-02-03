@@ -3,18 +3,16 @@ import {connect} from 'react-redux';
 import ProfileForm from './profileForm';
 import {updateProfileRequest, getProfileRequest} from '../../actions/authActions';
 import {addFlashMessage} from '../../actions/flashMessage';
+import {Col} from 'react-bootstrap';
 
 class ProfilePage extends Component {
     render() {
+        
         const {updateProfileRequest, getProfileRequest, profile, addFlashMessage} = this.props;
         return (
-            <div className="col-lg-offset-3 col-lg-6">
-                <ProfileForm
-                    updateProfileRequest={updateProfileRequest}
-                    getProfileRequest={getProfileRequest}
-                    addFlashMessage={addFlashMessage}
-                    profile={profile}/>
-            </div>
+            <Col>
+                Profile page
+            </Col>
         );
     }
 }

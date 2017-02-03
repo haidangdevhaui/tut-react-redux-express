@@ -8,6 +8,7 @@ class FontAwesome extends Component {
         return (
             <i
                 className={strClass}
+                style={{color: this.props.color ? this.props.color : ''}}
             >
             </i>
         );

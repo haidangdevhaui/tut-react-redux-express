@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 
-import routes from './routes';
+import RootRouter from './routes';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 
@@ -29,6 +29,6 @@ if(localStorage.jwtToken){
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory} routes={routes}/>
+        <Router history={browserHistory} routes={RootRouter}/>
     </Provider>
 , document.getElementById('app'))
