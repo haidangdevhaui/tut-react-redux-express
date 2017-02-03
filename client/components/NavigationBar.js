@@ -7,6 +7,7 @@ import {ADD_FLASH_MESSAGE} from '../actions/types';
 import FA from '../helpers/font-awesome';
 import style from '../styles/_navigation.css';
 import {Col, Navbar, Row, Modal, Button} from 'react-bootstrap';
+import axios from 'axios';
 
 class NavigationBar extends React.Component {
 
@@ -38,6 +39,17 @@ class NavigationBar extends React.Component {
         this.setState({showModal: true});
     }
 
+    onUploadImg(e){
+        var file = e.target.files[0];
+        var formData = new FormData();
+        formData.append('images', file);
+        formData.append('file_path', e.target.value);
+        axios.defaults.headers.post['Content-Type'] = undefined;
+        axios.post('api/upload', formData).then((response) => {
+            console.log(response);
+        });
+    }
+
     render(){
         const { isAuthenticated, user } = this.props.auth;
         const postModal = (
@@ -46,7 +58,7 @@ class NavigationBar extends React.Component {
                     <Modal.Title className="text-center">Compose new status</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Body
+                    <input type="file" name="images" onChange={this.onUploadImg.bind(this)} multiple/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.onClosePostModal.bind(this)}>Close</Button>

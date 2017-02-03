@@ -18,6 +18,7 @@ import webpackConfig from '../webpack.config.dev'
 
 import auth from './routers/auth';
 import routerUser from './routers/api/user';
+import uploadRouter from './routers/api/upload';
 
 let app = express();
 
@@ -52,6 +53,7 @@ app.use('/static', express.static('public'))
 
 app.use('/api/user', routerUser);
 app.use('/api/auth', auth);
+app.use('/api/upload', uploadRouter);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, './', 'index.html'));
