@@ -4,7 +4,7 @@ const router = express.Router();
 
 import User from '../../models/user';
 import validatorUser from '../../shared/validations/signup';
-
+import Status from '../../models/status';
 
 router.get('/', (req, res) => {
     User.find().exec((e, d) => {
@@ -50,6 +50,17 @@ router.post('/', (req, res) => {
             });
         })
     });
+});
+
+router.get('/status/:id', (req, res) => {
+
+})
+
+router.post('/status', (req, res) => {
+    let _status = new Status(req.body);
+    _status.save((err, doc) => {
+        res.json(doc);
+    })
 });
 
 

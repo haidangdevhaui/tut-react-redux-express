@@ -29,6 +29,7 @@
     "webpack-hot-middleware": "^2.15.0"
   },
   "dependencies": {
+    "async": "^2.1.4",
     "axios": "^0.15.3",
     "babel-cli": "^6.18.0",
     "babel-loader": "^6.2.10",
@@ -54,6 +55,7 @@
     "passport-local": "^1.0.0",
     "password-hash": "^1.2.2",
     "react": "^15.4.1",
+    "react-addons-update": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
